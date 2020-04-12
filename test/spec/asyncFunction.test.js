@@ -47,11 +47,14 @@ describe('asyncFunction', function () {
         throw new Error('Failed');
       };
 
-      asyncFunction(fn, true, 1, 2, 3, function (err, result) {
+      try {
+        asyncFunction(fn, true, 1, 2, 3, function (err, result) {
+          assert.ok(false);
+        });
+      } catch (err) {
         assert.ok(!!err);
-        assert.equal(result, undefined);
         done();
-      });
+      }
     });
   });
 
@@ -115,11 +118,14 @@ describe('asyncFunction', function () {
         throw new Error('Failed');
       };
 
-      asyncFunction(fn, true, 1, 2, 3, function (err, result) {
+      try {
+        asyncFunction(fn, true, 1, 2, 3, function (err, result) {
+          assert.ok(false);
+        });
+      } catch (err) {
         assert.ok(!!err);
-        assert.equal(result, undefined);
         done();
-      });
+      }
     });
   });
 });
