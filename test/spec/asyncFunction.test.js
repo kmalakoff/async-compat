@@ -71,21 +71,55 @@ describe('asyncFunction', function () {
         done();
       });
     });
-  });
 
-  it('error thrown', function (done) {
-    var fn = function (value1, value2, value3, callback) {
-      assert.equal(value1, 1);
-      assert.equal(value2, 2);
-      assert.equal(value3, 3);
-      assert.equal(callback, undefined);
-      throw new Error('Failed');
-    };
+    it('all parameters (promise)', function (done) {
+      var fn = function (value1, value2, value3, callback) {
+        assert.equal(value1, 1);
+        assert.equal(value2, 2);
+        assert.equal(value3, 3);
+        assert.equal(callback, undefined);
+        return Promise.resolve(4);
+      };
 
-    asyncFunction(fn, true, 1, 2, 3, function (err, result) {
-      assert.ok(!!err);
-      assert.equal(result, undefined);
-      done();
+      asyncFunction(fn, false, 1, 2, 3, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 4);
+        done();
+      });
+    });
+
+    it('error returned', function (done) {
+      var fn = function (value1, value2, value3, callback) {
+        assert.equal(value1, 1);
+        assert.equal(value2, 2);
+        assert.equal(value3, 3);
+        assert.equal(callback, undefined);
+        return new Promise(function (resolve, reject) {
+          reject(new Error('Failed'));
+        });
+      };
+
+      asyncFunction(fn, false, 1, 2, 3, function (err, result) {
+        assert.ok(!!err);
+        assert.equal(result, undefined);
+        done();
+      });
+    });
+
+    it('error thrown', function (done) {
+      var fn = function (value1, value2, value3, callback) {
+        assert.equal(value1, 1);
+        assert.equal(value2, 2);
+        assert.equal(value3, 3);
+        assert.equal(callback, undefined);
+        throw new Error('Failed');
+      };
+
+      asyncFunction(fn, true, 1, 2, 3, function (err, result) {
+        assert.ok(!!err);
+        assert.equal(result, undefined);
+        done();
+      });
     });
   });
 });
