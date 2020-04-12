@@ -127,5 +127,21 @@ describe('asyncFunction', function () {
         done();
       }
     });
+
+    it('error returned (no callback)', function (done) {
+      var fn = function (value1, value2, value3, callback) {
+        assert.equal(value1, 1);
+        assert.equal(value2, 2);
+        assert.equal(value3, 3);
+        assert.ok(!callback);
+        return new Error('Failed');
+      };
+
+      asyncFunction(fn, false, 1, 2, 3, function (err, result) {
+        assert.ok(!!err);
+        assert.equal(result, undefined);
+        done();
+      });
+    });
   });
 });
