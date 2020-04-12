@@ -26,6 +26,7 @@
   "license": "MIT",
   "homepage": "https://github.com/kmalakoff/async-compatibility",
   "dependencies": {
+    "is-error": "^2.2.2",
     "is-promise": "^2.1.0"
   },
   "devDependencies": {
