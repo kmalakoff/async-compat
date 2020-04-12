@@ -1,6 +1,6 @@
 {
   "name": "async-compatibilty",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Compatibility functions for writing libraries that support both callbacks and promises",
   "main": "index.js",
   "engines": {
@@ -26,6 +26,7 @@
   "license": "MIT",
   "homepage": "https://github.com/kmalakoff/async-compatibility",
   "dependencies": {
+    "is-error": "^2.2.2",
     "is-promise": "^2.1.0"
   },
   "devDependencies": {

@@ -19,4 +19,11 @@ describe('asyncValue', function () {
       done();
     });
   });
+  it('should return an error', function (done) {
+    asyncValue(new Error('Failed'), function (err, value) {
+      assert.ok(!!err);
+      assert.equal(value, undefined);
+      done();
+    });
+  });
 });
