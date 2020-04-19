@@ -1,25 +1,76 @@
-## reduce-deep
+## async-compat
 
-Deep reduce an array.
+Compatibility functions for writing libraries that support synchronous, callback and promise signatures.
+
+It handles both the call signature differences between callback and promises APIs (eg. missing the last callback parameter) by converting them to callbacks. It also resolves returned parameters when promises are returned.
 
 ```
-var reduceDeep = require('reduce-deep');
-var assert = require('assert');
+var compat = require(async-compat');
+var assert = require(assert');
 
-function flattenDeep(array) {
-  return reduceDeep(
-    array,
-    function (memo, value) {
-      memo.push(value);
-      return memo;
-    },
-    []
-  );
+/////////////////
+// asynchronous
+/////////////////
+function fn(value1) {
+  assert.equal(value1, 1);
+  return 4;
 }
 
-var array1 = [1, [2, [3, [4]], 5]];
-assert.deepStrictEqual(flattenDeep(array1), [1, 2, 3, 4, 5]);
+compat.asyncFunction(fn, false /* no callback */, 1, function (err, result) {
+  assert.ok(!err);
+  assert.equal(result, 4);
+});
 
-var array2 = [[], [[]], [[], [[[]]]]];
-assert.deepStrictEqual(flattenDeep(array2), []);
+function errorFn(value1) {
+  assert.equal(value1, 1);
+  return new Error('Failed');
+}
+
+compat.asyncFunction(errorFn, false /* no callback */, 1, function (err, result) {
+  assert.ok(!!err);
+});
+
+/////////////////
+// callback
+/////////////////
+function callbackFn(value1, callback) {
+  assert.equal(value1, 1);
+  callback(null, 4);
+}
+
+compat.asyncFunction(callbackFn, true /* use callback */, 1, function (err, result) {
+  assert.ok(!err);
+  assert.equal(result, 4);
+});
+
+function errorCallbackFn(value1, callback) {
+  assert.equal(value1, 1);
+  callback(new Error('Failed'));
+}
+
+compat.asyncFunction(errorCallbackFn, true /* use callback */, 1, function (err, result) {
+  assert.ok(!!err);
+});
+
+/////////////////
+// promise
+/////////////////
+function promiseFn(value1) {
+  assert.equal(value1, 1);
+  return Promise.resolve(4);
+}
+
+compat.asyncFunction(promiseFn, false /* no callback */, 1, function (err, result) {
+  assert.ok(!err);
+  assert.equal(result, 4);
+});
+
+function errorPromiseFn(value1) {
+  assert.equal(value1, 1);
+  return Promise.reject(new Error('Failed'));
+}
+
+compat.errorPromiseFn(promiseFn, false /* no callback */, 1, function (err, result) {
+  assert.ok(!!err);
+});
 ```
