@@ -1,6 +1,6 @@
 {
   "name": "async-compatibilty",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Compatibility functions for writing libraries that support synchronous, callback and promise signatures",
   "main": "index.js",
   "engines": {
@@ -26,8 +26,7 @@
   "license": "MIT",
   "homepage": "https://github.com/kmalakoff/async-compat",
   "dependencies": {
-    "is-error": "^2.2.2",
-    "is-promise": "^2.1.0"
+    "async-compat": "*"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
