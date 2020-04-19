@@ -1,7 +1,7 @@
 {
-  "name": "async-compatibility",
+  "name": "async-compat",
   "version": "1.3.0",
-  "description": "Compatibility functions for writing libraries that support both callbacks and promises",
+  "description": "Compatibility functions for writing libraries that support synchronous, callback and promise signatures",
   "main": "index.js",
   "engines": {
     "node": ">=0.10.0"
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:kmalakoff/async-compatibility.git"
+    "url": "git@github.com:kmalakoff/async-compat.git"
   },
   "keywords": [
     "async",
@@ -24,7 +24,7 @@
   ],
   "author": "Kevin Malakoff <kmalakoff@gmail.com> (https://github.com/kmalakoff)",
   "license": "MIT",
-  "homepage": "https://github.com/kmalakoff/async-compatibility",
+  "homepage": "https://github.com/kmalakoff/async-compat",
   "dependencies": {
     "is-error": "^2.2.2",
     "is-promise": "^2.1.0"

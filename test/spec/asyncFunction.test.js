@@ -150,4 +150,344 @@ describe('asyncFunction', function () {
       });
     });
   });
+
+  describe('arguments (sync)', function () {
+    var args = [];
+
+    function fn() {
+      args.push(Array.prototype.slice.call(arguments, 0));
+      return 1;
+    }
+
+    it('0 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, false, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, []);
+        });
+        done();
+      });
+    });
+
+    it('1 argument', function (done) {
+      args = [];
+      asyncFunction(fn, false, 1, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1]);
+        });
+        done();
+      });
+    });
+
+    it('2 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, false, 1, 2, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2]);
+        });
+        done();
+      });
+    });
+
+    it('3 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, false, 1, 2, 3, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2, 3]);
+        });
+        done();
+      });
+    });
+
+    it('4 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, false, 1, 2, 3, 4, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2, 3, 4]);
+        });
+        done();
+      });
+    });
+
+    it('5 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2, 3, 3, 4, 5]);
+        });
+        done();
+      });
+    });
+
+    it('6 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2, 3, 3, 4, 5, 6]);
+        });
+        done();
+      });
+    });
+
+    it('7 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, 7, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2, 3, 3, 4, 5, 6, 7]);
+        });
+        done();
+      });
+    });
+  });
+
+  describe('arguments (callback)', function () {
+    var args = [];
+
+    function fn() {
+      args.push(Array.prototype.slice.call(arguments, 0));
+      args[args.length - 1].pop()(null, 1);
+    }
+
+    it('0 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, true, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, []);
+        });
+        done();
+      });
+    });
+
+    it('1 argument', function (done) {
+      args = [];
+      asyncFunction(fn, true, 1, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1]);
+        });
+        done();
+      });
+    });
+
+    it('2 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, true, 1, 2, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2]);
+        });
+        done();
+      });
+    });
+
+    it('3 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, true, 1, 2, 3, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2, 3]);
+        });
+        done();
+      });
+    });
+
+    it('4 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, true, 1, 2, 3, 4, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2, 3, 4]);
+        });
+        done();
+      });
+    });
+
+    it('5 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2, 3, 3, 4, 5]);
+        });
+        done();
+      });
+    });
+
+    it('6 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, 6, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2, 3, 3, 4, 5, 6]);
+        });
+        done();
+      });
+    });
+
+    it('7 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, 6, 7, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2, 3, 3, 4, 5, 6, 7]);
+        });
+        done();
+      });
+    });
+  });
+
+  describe('arguments (promise)', function () {
+    if (typeof Promise === 'undefined') return; // no promise support
+    var args = [];
+
+    function fn() {
+      args.push(Array.prototype.slice.call(arguments, 0));
+      return Promise.resolve(1);
+    }
+
+    it('0 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, false, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, []);
+        });
+        done();
+      });
+    });
+
+    it('1 argument', function (done) {
+      args = [];
+      asyncFunction(fn, false, 1, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1]);
+        });
+        done();
+      });
+    });
+
+    it('2 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, false, 1, 2, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2]);
+        });
+        done();
+      });
+    });
+
+    it('3 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, false, 1, 2, 3, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2, 3]);
+        });
+        done();
+      });
+    });
+
+    it('4 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, false, 1, 2, 3, 4, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2, 3, 4]);
+        });
+        done();
+      });
+    });
+
+    it('5 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2, 3, 3, 4, 5]);
+        });
+        done();
+      });
+    });
+
+    it('6 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2, 3, 3, 4, 5, 6]);
+        });
+        done();
+      });
+    });
+
+    it('7 arguments', function (done) {
+      args = [];
+      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, 7, function (err, result) {
+        assert.ok(!err);
+        assert.equal(result, 1);
+        assert.equal(args.length, 1);
+        args.forEach(function (params) {
+          assert.deepEqual(params, [1, 2, 3, 3, 4, 5, 6, 7]);
+        });
+        done();
+      });
+    });
+  });
 });
