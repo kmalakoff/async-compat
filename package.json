@@ -1,6 +1,6 @@
 {
   "name": "async-compat",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Compatibility functions for writing libraries that support synchronous, callback and promise signatures",
   "main": "index.js",
   "engines": {
