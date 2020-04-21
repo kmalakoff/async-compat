@@ -1,6 +1,6 @@
 .vscode/
 compatibility/
-benchmark/
+performance/
 test/
 .eslintrc.js
 .prettierignore
