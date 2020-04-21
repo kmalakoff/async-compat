@@ -16,7 +16,7 @@ function fn(value1) {
   return 4;
 }
 
-compat.asyncFunction(fn, false /* no callback */, 1, function (err, result) {
+compat.asyncFunction(fn, false /* no callbacks */, 1, function (err, result) {
   assert.ok(!err);
   assert.equal(result, 4);
 });
@@ -26,7 +26,7 @@ function errorFn(value1) {
   return new Error('Failed');
 }
 
-compat.asyncFunction(errorFn, false /* no callback */, 1, function (err, result) {
+compat.asyncFunction(errorFn, false /* no callbacks */, 1, function (err, result) {
   assert.ok(!!err);
 });
 
@@ -38,7 +38,7 @@ function callbackFn(value1, callback) {
   callback(null, 4);
 }
 
-compat.asyncFunction(callbackFn, true /* use callback */, 1, function (err, result) {
+compat.asyncFunction(callbackFn, true /*  no callbacks */, 1, function (err, result) {
   assert.ok(!err);
   assert.equal(result, 4);
 });
@@ -48,7 +48,7 @@ function errorCallbackFn(value1, callback) {
   callback(new Error('Failed'));
 }
 
-compat.asyncFunction(errorCallbackFn, true /* use callback */, 1, function (err, result) {
+compat.asyncFunction(errorCallbackFn, true /*  no callbacks */, 1, function (err, result) {
   assert.ok(!!err);
 });
 
@@ -60,7 +60,7 @@ function promiseFn(value1) {
   return Promise.resolve(4);
 }
 
-compat.asyncFunction(promiseFn, false /* no callback */, 1, function (err, result) {
+compat.asyncFunction(promiseFn, false /* no callbacks */, 1, function (err, result) {
   assert.ok(!err);
   assert.equal(result, 4);
 });
@@ -70,7 +70,7 @@ function errorPromiseFn(value1) {
   return Promise.reject(new Error('Failed'));
 }
 
-compat.errorPromiseFn(promiseFn, false /* no callback */, 1, function (err, result) {
+compat.errorPromiseFn(promiseFn, false /* no callbacks */, 1, function (err, result) {
   assert.ok(!!err);
 });
 ```
