@@ -7,8 +7,8 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "mocha . test/**/*.test.js",
-    "compatibility": "nvs 14 12 10 8 6 4 0.12 0.10 0.8 -- npm test",
+    "test": "mocha test/spec/**/*.test.js",
+    "compat": "nvs 14 12 10 8 6 4 0.12 0.10 0.8 -- mocha-compat test/spec/**/*.test.js",
     "lint": "eslint .",
     "format": "prettier --write '**/*.js'"
   },
@@ -28,7 +28,8 @@
   "homepage": "https://github.com/kmalakoff/async-compat",
   "dependencies": {
     "is-error": "^2.2.2",
-    "is-promise": "^2.2.2"
+    "is-promise": "^2.2.2",
+    "mocha": "^7.1.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
