@@ -1,7 +1,7 @@
 {
   "name": "async-compat-benchmark",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "description": "Tests",
   "repository": {
     "type": "git",
@@ -9,13 +9,13 @@
   },
   "license": "MIT",
   "scripts": {
-    "ops": "node operations/index.js",
     "flame": "npx 0x operations/index.js",
     "mem": "node memory/index.js",
+    "ops": "node operations/index.js",
     "test": "npm run ops && npm run mem"
   },
   "dependencies": {
-    "benchmark-suite": "^0.1.6",
-    "async-compat-1.3.0": "npm:async-compatibilty@^1.3.0"
+    "async-compat-1.3.0": "npm:async-compatibilty@^1.3.0",
+    "benchmark-suite": "^0.1.6"
   }
 }
