@@ -5,11 +5,11 @@ Compatibility functions for writing libraries that support synchronous, callback
 It handles both the call signature differences between callback and promises APIs (eg. missing the last callback parameter) by converting them to callbacks. It also resolves returned parameters when promises are returned.
 
 ```
-var compat = require(async-compat');
+var compat = require('async-compat');
 var assert = require(assert');
 
 /////////////////
-// asynchronous
+// synchronous
 /////////////////
 function fn(value1) {
   assert.equal(value1, 1);
