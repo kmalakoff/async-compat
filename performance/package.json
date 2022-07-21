@@ -1,5 +1,5 @@
 {
-  "name": "async-compat-benchmark",
+  "name": "async-compat-performance",
   "version": "0.0.0",
   "private": true,
   "description": "Tests",
@@ -15,7 +15,10 @@
     "test": "npm run ops && npm run mem"
   },
   "dependencies": {
-    "async-compat-1.3.0": "npm:async-compatibilty@1.3.0",
-    "benchmark-suite": "^0.1.6"
+    "async-compat-1.3.0": "npm:async-compatibilty@1.4.1",
+    "benchmark-suite": "^0.1.7"
+  },
+  "engines": {
+    "node": ">=8"
   }
 }
