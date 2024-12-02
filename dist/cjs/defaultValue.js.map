@@ -1,0 +1,1 @@
+{"version":3,"sources":["defaultValue.js"],"sourcesContent":["module.exports = function defaultValue(result, value) {\n  return result === undefined ? value : result;\n};\n"],"names":["module","exports","defaultValue","result","value","undefined"],"mappings":";AAAAA,OAAOC,OAAO,GAAG,SAASC,aAAaC,MAAM,EAAEC,KAAK;IAClD,OAAOD,WAAWE,YAAYD,QAAQD;AACxC"}
