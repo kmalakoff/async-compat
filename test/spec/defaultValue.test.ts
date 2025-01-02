@@ -1,8 +1,7 @@
-const assert = require('assert');
+import assert from 'assert';
 
-const compatability = require('../..');
-
-const defaultValue = compatability.defaultValue;
+// @ts-ignore
+import { defaultValue } from 'async-compat';
 
 describe('defaultValue', () => {
   it('not replace defined value', () => {
