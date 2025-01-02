@@ -1,18 +1,21 @@
-const assert = require('assert');
+import assert from 'assert';
+// biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
+import Promise from 'pinkie-promise';
 
-const compat = require('../..');
+// @ts-ignore
+import compat from 'async-compat';
 
 describe('async await', () => {
   (() => {
     // patch and restore promise
-    const root = typeof global !== 'undefined' ? global : window;
-    let rootPromise;
+    // @ts-ignore
+    let rootPromise: Promise;
     before(() => {
-      rootPromise = root.Promise;
-      root.Promise = require('pinkie-promise');
+      rootPromise = global.Promise;
+      global.Promise = Promise;
     });
     after(() => {
-      root.Promise = rootPromise;
+      global.Promise = rootPromise;
     });
   })();
 
