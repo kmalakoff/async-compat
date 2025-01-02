@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+dist/
+docs/
+npm-debug.log
+data/
+*.heapsnapshot
+*.0x
