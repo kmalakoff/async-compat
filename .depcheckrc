@@ -1,1 +1,1 @@
-ignores: ["depcheck"]
+ignores: ["async-compat", "@types/*", "@biomejs/*", "mocha-compat", "ts-swc-loaders"]

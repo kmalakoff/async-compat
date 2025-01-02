@@ -1,14 +1,14 @@
-var isError = require('is-error');
-var isPromise = require('is-promise');
+const isError = require('is-error');
+const isPromise = require('is-promise');
 
 module.exports = function asyncValue(value, callback) {
   if (isError(value)) return callback(value);
   if (isPromise(value)) {
     return value
-      .then(function (result) {
+      .then((result) => {
         callback(null, result);
       })
-      .catch(function (err) {
+      .catch((err) => {
         callback(err);
       });
   }

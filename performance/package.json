@@ -9,14 +9,14 @@
   },
   "license": "MIT",
   "scripts": {
-    "flame": "npx 0x operations/index.js",
-    "mem": "node memory/index.js",
-    "ops": "node operations/index.js",
+    "flame": "npx 0x operations/index.cjs",
+    "mem": "node memory/index.cjs",
+    "ops": "node operations/index.cjs",
     "test": "npm run ops && npm run mem"
   },
   "dependencies": {
     "async-compat-1.3.0": "npm:async-compatibilty@1.4.1",
-    "benchmark-suite": "^0.1.7"
+    "benchmark-suite": "^1.1.0"
   },
   "engines": {
     "node": ">=8"

@@ -1,15 +1,15 @@
-var assert = require('assert');
+const assert = require('assert');
 
-var compatability = require('../..');
+const compatability = require('../..');
 
-var defaultValue = compatability.defaultValue;
+const defaultValue = compatability.defaultValue;
 
-describe('defaultValue', function () {
-  it('not replace defined value', function () {
+describe('defaultValue', () => {
+  it('not replace defined value', () => {
     assert.equal(defaultValue(1, 2), 1);
   });
 
-  it('should replace undefined value', function () {
+  it('should replace undefined value', () => {
     assert.equal(defaultValue(undefined, 2), 2);
   });
 });
