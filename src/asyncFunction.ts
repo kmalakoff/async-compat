@@ -1,8 +1,11 @@
-const asyncValue = require('./asyncValue');
+import asyncValue from './asyncValue';
 
-module.exports = function asyncFunction(fn, useCallback, arg1, arg2, arg3, arg4, arg5, arg6, callback) {
+import type { AsyncCallback } from './types';
+type Optional = AsyncCallback | undefined | unknown;
+
+export default function asyncFunction(fn, useCallback: boolean, arg1?: Optional, arg2?: Optional, arg3?: Optional, arg4?: Optional, arg5?: Optional, arg6?: Optional, callback?: Optional) {
   function wrapper(err, result) {
-    err ? callback(err) : asyncValue(result, callback);
+    err ? (callback as AsyncCallback)(err) : asyncValue(result, callback);
   }
 
   if (useCallback) {
@@ -66,4 +69,4 @@ module.exports = function asyncFunction(fn, useCallback, arg1, arg2, arg3, arg4,
       return wrapper(null, fn.apply(null, args1));
     }
   }
-};
+}
