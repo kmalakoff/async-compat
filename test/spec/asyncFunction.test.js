@@ -1,12 +1,14 @@
-var assert = require('assert');
+// biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
+const Promise = require('pinkie-promise');
+const assert = require('assert');
 
-var compatability = require('../..');
+const compatability = require('../..');
 
-var asyncFunction = compatability.asyncFunction;
+const asyncFunction = compatability.asyncFunction;
 
-describe('asyncFunction', function () {
-  describe('asynchronous function', function () {
-    it('all parameters', function (done) {
+describe('asyncFunction', () => {
+  describe('asynchronous function', () => {
+    it('all parameters', (done) => {
       function fn(value1, value2, value3, callback) {
         assert.equal(value1, 1);
         assert.equal(value2, 2);
@@ -15,14 +17,14 @@ describe('asyncFunction', function () {
         callback(null, 4);
       }
 
-      asyncFunction(fn, true, 1, 2, 3, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, true, 1, 2, 3, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 4);
         done();
       });
     });
 
-    it('error returned', function (done) {
+    it('error returned', (done) => {
       function fn(value1, value2, value3, callback) {
         assert.equal(value1, 1);
         assert.equal(value2, 2);
@@ -31,14 +33,14 @@ describe('asyncFunction', function () {
         callback(new Error('Failed'));
       }
 
-      asyncFunction(fn, true, 1, 2, 3, function (err, result) {
+      asyncFunction(fn, true, 1, 2, 3, (err, result) => {
         assert.ok(!!err);
         assert.equal(result, undefined);
         done();
       });
     });
 
-    it('error thrown', function (done) {
+    it('error thrown', (done) => {
       function fn(value1, value2, value3, callback) {
         assert.equal(value1, 1);
         assert.equal(value2, 2);
@@ -48,8 +50,8 @@ describe('asyncFunction', function () {
       }
 
       try {
-        asyncFunction(fn, true, 1, 2, 3, function (err, result) {
-          assert.ok(!err);
+        asyncFunction(fn, true, 1, 2, 3, (err, _result) => {
+          assert.ok(!err, err ? err.message : '');
           assert.ok(false);
         });
       } catch (err) {
@@ -59,8 +61,8 @@ describe('asyncFunction', function () {
     });
   });
 
-  describe('synchronous function', function () {
-    it('all parameters', function (done) {
+  describe('synchronous function', () => {
+    it('all parameters', (done) => {
       function fn(value1, value2, value3, callback) {
         assert.equal(value1, 1);
         assert.equal(value2, 2);
@@ -69,16 +71,14 @@ describe('asyncFunction', function () {
         return 4;
       }
 
-      asyncFunction(fn, false, 1, 2, 3, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, 1, 2, 3, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 4);
         done();
       });
     });
 
-    it('all parameters (promise)', function (done) {
-      if (typeof Promise === 'undefined') return done(); // no promise support
-
+    it('all parameters (promise)', (done) => {
       function fn(value1, value2, value3, callback) {
         assert.equal(value1, 1);
         assert.equal(value2, 2);
@@ -87,34 +87,32 @@ describe('asyncFunction', function () {
         return Promise.resolve(4);
       }
 
-      asyncFunction(fn, false, 1, 2, 3, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, 1, 2, 3, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 4);
         done();
       });
     });
 
-    it('error returned', function (done) {
-      if (typeof Promise === 'undefined') return done(); // no promise support
-
+    it('error returned', (done) => {
       function fn(value1, value2, value3, callback) {
         assert.equal(value1, 1);
         assert.equal(value2, 2);
         assert.equal(value3, 3);
         assert.equal(callback, undefined);
-        return new Promise(function (resolve, reject) {
+        return new Promise((_resolve, reject) => {
           reject(new Error('Failed'));
         });
       }
 
-      asyncFunction(fn, false, 1, 2, 3, function (err, result) {
+      asyncFunction(fn, false, 1, 2, 3, (err, result) => {
         assert.ok(!!err);
         assert.equal(result, undefined);
         done();
       });
     });
 
-    it('error thrown', function (done) {
+    it('error thrown', (done) => {
       function fn(value1, value2, value3, callback) {
         assert.equal(value1, 1);
         assert.equal(value2, 2);
@@ -124,8 +122,8 @@ describe('asyncFunction', function () {
       }
 
       try {
-        asyncFunction(fn, true, 1, 2, 3, function (err, result) {
-          assert.ok(!err);
+        asyncFunction(fn, true, 1, 2, 3, (err, _result) => {
+          assert.ok(!err, err ? err.message : '');
           assert.ok(false);
         });
       } catch (err) {
@@ -134,7 +132,7 @@ describe('asyncFunction', function () {
       }
     });
 
-    it('error returned (no callback)', function (done) {
+    it('error returned (no callback)', (done) => {
       function fn(value1, value2, value3, callback) {
         assert.equal(value1, 1);
         assert.equal(value2, 2);
@@ -143,7 +141,7 @@ describe('asyncFunction', function () {
         return new Error('Failed');
       }
 
-      asyncFunction(fn, false, 1, 2, 3, function (err, result) {
+      asyncFunction(fn, false, 1, 2, 3, (err, result) => {
         assert.ok(!!err);
         assert.equal(result, undefined);
         done();
@@ -151,112 +149,113 @@ describe('asyncFunction', function () {
     });
   });
 
-  describe('arguments (sync)', function () {
-    var args = [];
+  describe('arguments (sync)', () => {
+    let args = [];
 
     function fn() {
+      // biome-ignore lint/style/noArguments: <explanation>
       args.push(Array.prototype.slice.call(arguments, 0));
       return 1;
     }
 
-    it('0 arguments', function (done) {
+    it('0 arguments', (done) => {
       args = [];
-      asyncFunction(fn, false, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, []);
         });
         done();
       });
     });
 
-    it('1 argument', function (done) {
+    it('1 argument', (done) => {
       args = [];
-      asyncFunction(fn, false, 1, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, 1, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1]);
         });
         done();
       });
     });
 
-    it('2 arguments', function (done) {
+    it('2 arguments', (done) => {
       args = [];
-      asyncFunction(fn, false, 1, 2, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, 1, 2, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2]);
         });
         done();
       });
     });
 
-    it('3 arguments', function (done) {
+    it('3 arguments', (done) => {
       args = [];
-      asyncFunction(fn, false, 1, 2, 3, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, 1, 2, 3, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2, 3]);
         });
         done();
       });
     });
 
-    it('4 arguments', function (done) {
+    it('4 arguments', (done) => {
       args = [];
-      asyncFunction(fn, false, 1, 2, 3, 4, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, 1, 2, 3, 4, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2, 3, 4]);
         });
         done();
       });
     });
 
-    it('5 arguments', function (done) {
+    it('5 arguments', (done) => {
       args = [];
-      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2, 3, 3, 4, 5]);
         });
         done();
       });
     });
 
-    it('6 arguments', function (done) {
+    it('6 arguments', (done) => {
       args = [];
-      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2, 3, 3, 4, 5, 6]);
         });
         done();
       });
     });
 
-    it('7 arguments', function (done) {
+    it('7 arguments', (done) => {
       args = [];
-      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, 7, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, 7, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2, 3, 3, 4, 5, 6, 7]);
         });
         done();
@@ -264,112 +263,113 @@ describe('asyncFunction', function () {
     });
   });
 
-  describe('arguments (callback)', function () {
-    var args = [];
+  describe('arguments (callback)', () => {
+    let args = [];
 
     function fn() {
+      // biome-ignore lint/style/noArguments: <explanation>
       args.push(Array.prototype.slice.call(arguments, 0));
       args[args.length - 1].pop()(null, 1);
     }
 
-    it('0 arguments', function (done) {
+    it('0 arguments', (done) => {
       args = [];
-      asyncFunction(fn, true, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, true, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, []);
         });
         done();
       });
     });
 
-    it('1 argument', function (done) {
+    it('1 argument', (done) => {
       args = [];
-      asyncFunction(fn, true, 1, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, true, 1, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1]);
         });
         done();
       });
     });
 
-    it('2 arguments', function (done) {
+    it('2 arguments', (done) => {
       args = [];
-      asyncFunction(fn, true, 1, 2, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, true, 1, 2, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2]);
         });
         done();
       });
     });
 
-    it('3 arguments', function (done) {
+    it('3 arguments', (done) => {
       args = [];
-      asyncFunction(fn, true, 1, 2, 3, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, true, 1, 2, 3, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2, 3]);
         });
         done();
       });
     });
 
-    it('4 arguments', function (done) {
+    it('4 arguments', (done) => {
       args = [];
-      asyncFunction(fn, true, 1, 2, 3, 4, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, true, 1, 2, 3, 4, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2, 3, 4]);
         });
         done();
       });
     });
 
-    it('5 arguments', function (done) {
+    it('5 arguments', (done) => {
       args = [];
-      asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2, 3, 3, 4, 5]);
         });
         done();
       });
     });
 
-    it('6 arguments', function (done) {
+    it('6 arguments', (done) => {
       args = [];
-      asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, 6, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, 6, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2, 3, 3, 4, 5, 6]);
         });
         done();
       });
     });
 
-    it('7 arguments', function (done) {
+    it('7 arguments', (done) => {
       args = [];
-      asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, 6, 7, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, 6, 7, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2, 3, 3, 4, 5, 6, 7]);
         });
         done();
@@ -377,113 +377,113 @@ describe('asyncFunction', function () {
     });
   });
 
-  describe('arguments (promise)', function () {
-    if (typeof Promise === 'undefined') return; // no promise support
-    var args = [];
+  describe('arguments (promise)', () => {
+    let args = [];
 
     function fn() {
+      // biome-ignore lint/style/noArguments: <explanation>
       args.push(Array.prototype.slice.call(arguments, 0));
       return Promise.resolve(1);
     }
 
-    it('0 arguments', function (done) {
+    it('0 arguments', (done) => {
       args = [];
-      asyncFunction(fn, false, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, []);
         });
         done();
       });
     });
 
-    it('1 argument', function (done) {
+    it('1 argument', (done) => {
       args = [];
-      asyncFunction(fn, false, 1, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, 1, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1]);
         });
         done();
       });
     });
 
-    it('2 arguments', function (done) {
+    it('2 arguments', (done) => {
       args = [];
-      asyncFunction(fn, false, 1, 2, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, 1, 2, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2]);
         });
         done();
       });
     });
 
-    it('3 arguments', function (done) {
+    it('3 arguments', (done) => {
       args = [];
-      asyncFunction(fn, false, 1, 2, 3, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, 1, 2, 3, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2, 3]);
         });
         done();
       });
     });
 
-    it('4 arguments', function (done) {
+    it('4 arguments', (done) => {
       args = [];
-      asyncFunction(fn, false, 1, 2, 3, 4, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, 1, 2, 3, 4, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2, 3, 4]);
         });
         done();
       });
     });
 
-    it('5 arguments', function (done) {
+    it('5 arguments', (done) => {
       args = [];
-      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2, 3, 3, 4, 5]);
         });
         done();
       });
     });
 
-    it('6 arguments', function (done) {
+    it('6 arguments', (done) => {
       args = [];
-      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2, 3, 3, 4, 5, 6]);
         });
         done();
       });
     });
 
-    it('7 arguments', function (done) {
+    it('7 arguments', (done) => {
       args = [];
-      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, 7, function (err, result) {
-        assert.ok(!err);
+      asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, 7, (err, result) => {
+        assert.ok(!err, err ? err.message : '');
         assert.equal(result, 1);
         assert.equal(args.length, 1);
-        args.forEach(function (params) {
+        args.forEach((params) => {
           assert.deepEqual(params, [1, 2, 3, 3, 4, 5, 6, 7]);
         });
         done();

@@ -1,28 +1,28 @@
-var assert = require('assert');
+// biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
+const Promise = require('pinkie-promise');
+const assert = require('assert');
 
-var compatability = require('../..');
+const compatability = require('../..');
 
-var asyncValue = compatability.asyncValue;
+const asyncValue = compatability.asyncValue;
 
-describe('asyncValue', function () {
-  it('should resolve a promise', function (done) {
-    if (typeof Promise === 'undefined') return done(); // no promise support
-
-    asyncValue(Promise.resolve(1), function (err, value) {
-      assert.ok(!err);
+describe('asyncValue', () => {
+  it('should resolve a promise', (done) => {
+    asyncValue(Promise.resolve(1), (err, value) => {
+      assert.ok(!err, err ? err.message : '');
       assert.equal(value, 1);
       done();
     });
   });
-  it('should return a value', function (done) {
-    asyncValue(1, function (err, value) {
-      assert.ok(!err);
+  it('should return a value', (done) => {
+    asyncValue(1, (err, value) => {
+      assert.ok(!err, err ? err.message : '');
       assert.equal(value, 1);
       done();
     });
   });
-  it('should return an error', function (done) {
-    asyncValue(new Error('Failed'), function (err, value) {
+  it('should return an error', (done) => {
+    asyncValue(new Error('Failed'), (err, value) => {
       assert.ok(!!err);
       assert.equal(value, undefined);
       done();
