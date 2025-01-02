@@ -1,10 +1,9 @@
+import assert from 'assert';
 // biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
-const Promise = require('pinkie-promise');
-const assert = require('assert');
+import Promise from 'pinkie-promise';
 
-const compatability = require('../..');
-
-const asyncValue = compatability.asyncValue;
+// @ts-ignore
+import { asyncValue } from 'async-compat';
 
 describe('asyncValue', () => {
   it('should resolve a promise', (done) => {

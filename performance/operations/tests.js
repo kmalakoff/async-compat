@@ -1,6 +1,6 @@
 var BenchmarkSuite = require('benchmark-suite');
 
-module.exports = async function run({ compat, version }) {
+export default async function run({ compat, version }) {
   var suite = new BenchmarkSuite('compat ' + version, 'Operations');
 
   function testFn(fn) {

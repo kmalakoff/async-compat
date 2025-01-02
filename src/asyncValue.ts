@@ -1,10 +1,10 @@
-const isError = require('is-error');
-const isPromise = require('is-promise');
+import isError from 'is-error';
+import isPromise from 'is-promise';
 
-module.exports = function asyncValue(value, callback) {
+export default function asyncValue(value, callback) {
   if (isError(value)) return callback(value);
   if (isPromise(value)) {
-    return value
+    return (value as Promise<unknown>)
       .then((result) => {
         callback(null, result);
       })
@@ -13,4 +13,4 @@ module.exports = function asyncValue(value, callback) {
       });
   }
   return callback(null, value);
-};
+}
