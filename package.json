@@ -4,7 +4,7 @@
   "description": "Compatibility functions for writing libraries that support synchronous, callback and promise signatures",
   "keywords": [
     "async",
-    "compatibilty",
+    "compatibility",
     "library",
     "callback",
     "promise"
@@ -16,7 +16,17 @@
   },
   "license": "MIT",
   "author": "Kevin Malakoff <kmalakoff@gmail.com> (https://github.com/kmalakoff)",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.mjs",
+      "require": "./dist/cjs/index.cjs",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./*": "./*"
+  },
   "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist"
@@ -25,7 +35,7 @@
     "build": "tsds build",
     "deploy": "tsds deploy",
     "format": "biome check --write --unsafe src/ test/",
-    "test": "ts-swc mocha-compat test/spec/**/*.test.js --no-timeouts",
+    "test": "tsds test:node --no-timeouts",
     "test:engines": "nvu engines npm test",
     "version": "tsds version"
   },
@@ -45,9 +55,6 @@
     "node": ">=0.8"
   },
   "tsds": {
-    "source": "src/index.mjs",
-    "targets": [
-      "cjs"
-    ]
+    "source": "src/index.ts"
   }
 }
