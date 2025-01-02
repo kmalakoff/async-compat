@@ -1,6 +1,8 @@
 .DS_Store
 node_modules/
-package-lock.json
+dist/
+docs/
+npm-debug.log
 data/
 *.heapsnapshot
 *.0x
