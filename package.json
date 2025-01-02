@@ -1,6 +1,6 @@
 {
   "name": "async-compat",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Compatibility functions for writing libraries that support synchronous, callback and promise signatures",
   "keywords": [
     "async",
