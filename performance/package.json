@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "async-compat-1.3.0": "npm:async-compatibilty@1.4.1",
-    "benchmark-suite": "^1.1.0"
+    "benchmark-suite": "^1.1.4"
   },
   "engines": {
     "node": ">=8"
