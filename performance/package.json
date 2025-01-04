@@ -5,7 +5,7 @@
   "description": "Tests",
   "repository": {
     "type": "git",
-    "url": "git@github.com:kmalakoff/async-compat.git"
+    "url": "git+ssh://git@github.com/kmalakoff/async-compat.git"
   },
   "license": "MIT",
   "scripts": {
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "async-compat-1.3.0": "npm:async-compatibilty@1.4.1",
-    "benchmark-suite": "^1.1.4"
+    "benchmark-suite": "^1.1.5"
   },
   "engines": {
     "node": ">=8"
