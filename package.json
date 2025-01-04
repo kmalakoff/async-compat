@@ -34,6 +34,7 @@
   "scripts": {
     "build": "tsds build",
     "deploy": "tsds deploy",
+    "docs": "tsds docs",
     "format": "biome check --write --unsafe src/ test/",
     "test": "tsds test:node --no-timeouts",
     "test:engines": "nvu engines npm test",
@@ -46,10 +47,10 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@types/mocha": "^10.0.10",
-    "@types/node": "^22.10.3",
+    "@types/node": "^22.10.5",
     "mocha-compat": "^3.6.2",
     "pinkie-promise": "^2.0.1",
-    "ts-swc-loaders": "^1.8.10"
+    "ts-swc-loaders": "^1.10.3"
   },
   "engines": {
     "node": ">=0.8"
