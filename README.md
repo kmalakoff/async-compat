@@ -17,7 +17,6 @@ function fn(value1) {
 }
 
 compat.asyncFunction(fn, false /* no callbacks */, 1, function (err, result) {
-  assert.ok(!err, err ? err.message : '');
   assert.equal(result, 4);
 });
 
@@ -39,7 +38,6 @@ function callbackFn(value1, callback) {
 }
 
 compat.asyncFunction(callbackFn, true /*  no callbacks */, 1, function (err, result) {
-  assert.ok(!err, err ? err.message : '');
   assert.equal(result, 4);
 });
 
@@ -61,7 +59,6 @@ function promiseFn(value1) {
 }
 
 compat.asyncFunction(promiseFn, false /* no callbacks */, 1, function (err, result) {
-  assert.ok(!err, err ? err.message : '');
   assert.equal(result, 4);
 });
 
