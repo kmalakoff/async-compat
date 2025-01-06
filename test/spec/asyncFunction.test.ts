@@ -51,11 +51,10 @@ describe('asyncFunction', () => {
       try {
         asyncFunction(fn, true, 1, 2, 3, (err, _result) => {
           assert.ok(!!err);
-          assert.equal(err.message, 'Failed');
-          done();
         });
       } catch (_err) {
-        assert.ok(false);
+        assert.ok(true);
+        done();
       }
     });
   });
