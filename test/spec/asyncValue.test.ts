@@ -8,14 +8,14 @@ import { asyncValue } from 'async-compat';
 describe('asyncValue', () => {
   it('should resolve a promise', (done) => {
     asyncValue(Promise.resolve(1), (err, value) => {
-      if (err) return done(err);
+      if (err) return done(err.message);
       assert.equal(value, 1);
       done();
     });
   });
   it('should return a value', (done) => {
     asyncValue(1, (err, value) => {
-      if (err) return done(err);
+      if (err) return done(err.message);
       assert.equal(value, 1);
       done();
     });
