@@ -25,7 +25,7 @@ describe('async await', () => {
       return true;
     }
     compat.asyncFunction(testFn, false, 1, (err, result) => {
-      if (err) return done(err);
+      if (err) return done(err.message);
       assert.equal(result, true);
       done();
     });
