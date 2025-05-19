@@ -1,10 +1,10 @@
-export * from './types';
-export { default as asyncFunction } from './asyncFunction';
-export { default as asyncValue } from './asyncValue';
-export { default as defaultValue } from './defaultValue';
+export * from './types.js';
+export { default as asyncFunction } from './asyncFunction.js';
+export { default as asyncValue } from './asyncValue.js';
+export { default as defaultValue } from './defaultValue.js';
 
-import { default as asyncFunction } from './asyncFunction';
-import { default as asyncValue } from './asyncValue';
-import { default as defaultValue } from './defaultValue';
+import { default as asyncFunction } from './asyncFunction.js';
+import { default as asyncValue } from './asyncValue.js';
+import { default as defaultValue } from './defaultValue.js';
 
 export default { asyncFunction, asyncValue, defaultValue };
