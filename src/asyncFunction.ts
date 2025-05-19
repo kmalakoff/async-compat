@@ -1,6 +1,6 @@
-import asyncValue from './asyncValue';
+import asyncValue from './asyncValue.js';
 
-import type { AsyncCallback } from './types';
+import type { AsyncCallback } from './types.js';
 type Optional = AsyncCallback | undefined | unknown;
 
 export default function asyncFunction(fn, useCallback: boolean, arg1?: Optional, arg2?: Optional, arg3?: Optional, arg4?: Optional, arg5?: Optional, arg6?: Optional, callback?: Optional) {
