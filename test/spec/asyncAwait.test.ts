@@ -1,6 +1,5 @@
 import assert from 'assert';
-// biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
-import Promise from 'pinkie-promise';
+import Pinkie from 'pinkie-promise';
 
 // @ts-ignore
 import compat from 'async-compat';
@@ -12,7 +11,7 @@ describe('async await', () => {
     let rootPromise: Promise;
     before(() => {
       rootPromise = global.Promise;
-      global.Promise = Promise;
+      global.Promise = Pinkie;
     });
     after(() => {
       global.Promise = rootPromise;
