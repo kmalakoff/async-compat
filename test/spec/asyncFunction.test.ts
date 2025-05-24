@@ -1,6 +1,5 @@
 import assert from 'assert';
-// biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
-import Promise from 'pinkie-promise';
+import Pinkie from 'pinkie-promise';
 
 // @ts-ignore
 import { asyncFunction } from 'async-compat';
@@ -82,7 +81,7 @@ describe('asyncFunction', () => {
         assert.equal(value2, 2);
         assert.equal(value3, 3);
         assert.equal(callback, undefined);
-        return Promise.resolve(4);
+        return Pinkie.resolve(4);
       }
 
       asyncFunction(fn, false, 1, 2, 3, (err?: Error, result?: unknown) => {
@@ -98,7 +97,7 @@ describe('asyncFunction', () => {
         assert.equal(value2, 2);
         assert.equal(value3, 3);
         assert.equal(callback, undefined);
-        return new Promise((_resolve, reject) => {
+        return new Pinkie((_resolve, reject) => {
           reject(new Error('Failed'));
         });
       }
@@ -385,7 +384,7 @@ describe('asyncFunction', () => {
     function fn() {
       // biome-ignore lint/style/noArguments: <explanation>
       args.push(Array.prototype.slice.call(arguments, 0));
-      return Promise.resolve(1);
+      return Pinkie.resolve(1);
     }
 
     it('0 arguments', (done) => {

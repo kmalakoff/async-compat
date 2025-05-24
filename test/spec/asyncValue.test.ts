@@ -1,13 +1,12 @@
 import assert from 'assert';
-// biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
-import Promise from 'pinkie-promise';
+import Pinkie from 'pinkie-promise';
 
 // @ts-ignore
 import { asyncValue } from 'async-compat';
 
 describe('asyncValue', () => {
   it('should resolve a promise', (done) => {
-    asyncValue(Promise.resolve(1), (err, value) => {
+    asyncValue(Pinkie.resolve(1), (err, value) => {
       if (err) return done(err.message);
       assert.equal(value, 1);
       done();
