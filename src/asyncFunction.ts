@@ -1,71 +1,83 @@
 import asyncValue from './asyncValue.js';
 
-import type { AsyncCallback, AsyncCallbackFn0, AsyncCallbackFn1, AsyncCallbackFn2, AsyncCallbackFn3, AsyncCallbackFn4, AsyncCallbackFn5, AsyncCallbackFn6, AsyncFunction, AsyncPromiseFn0, AsyncPromiseFn1, AsyncPromiseFn2, AsyncPromiseFn3, AsyncPromiseFn4, AsyncPromiseFn5, AsyncPromiseFn6 } from './types.js';
-type Optional = AsyncCallback | undefined | unknown;
+import type { AsyncCallback, AsyncCallbackFn0, AsyncCallbackFn1, AsyncCallbackFn2, AsyncCallbackFn3, AsyncCallbackFn4, AsyncCallbackFn5, AsyncCallbackFn6, AsyncFn0, AsyncFn1, AsyncFn2, AsyncFn3, AsyncFn4, AsyncFn5, AsyncFn6, AsyncFunction } from './types.js';
+type Optional = AsyncCallback | unknown;
 
-export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1?: Optional, arg2?: Optional, arg3?: Optional, arg4?: Optional, arg5?: Optional, arg6?: Optional, callback?: Optional): undefined | unknown {
-  const wrapper: AsyncCallback = (err?: Error, result?: unknown) => {
+export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, callback: AsyncCallback): undefined;
+export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: unknown, callback: AsyncCallback): undefined;
+export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: unknown, arg2: unknown, callback: AsyncCallback): undefined;
+export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: unknown, arg2: unknown, arg3: unknown, callback: AsyncCallback): undefined;
+export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: unknown, arg2: unknown, arg3: unknown, arg4: unknown, callback: AsyncCallback): undefined;
+export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: unknown, arg2: unknown, arg3: unknown, arg4: unknown, arg5: unknown, callback: AsyncCallback): undefined;
+export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: unknown, arg2: unknown, arg3: unknown, arg4: unknown, arg5: unknown, arg6: unknown, callback: AsyncCallback): undefined;
+export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: Optional, arg2?: Optional, arg3?: Optional, arg4?: Optional, arg5?: Optional, arg6?: Optional, _callback?: Optional): undefined {
+  // biome-ignore lint/style/noArguments: <explanation>
+  const callback = arguments[arguments.length - 1] as AsyncCallback;
+  const wrapper: AsyncCallback = (err?: Error, result?: unknown): undefined => {
     err ? (callback as AsyncCallback)(err) : asyncValue(result, callback as AsyncCallback);
   };
   if (useCallback) {
     // biome-ignore lint/style/noArguments: <explanation>
     switch (arguments.length) {
       case 3:
-        callback = arg1;
-        return (fn as AsyncCallbackFn0)(wrapper);
+        (fn as AsyncCallbackFn0)(wrapper);
+        return;
       case 4:
-        callback = arg2;
-        return (fn as AsyncCallbackFn1)(arg1, wrapper);
+        (fn as AsyncCallbackFn1)(arg1, wrapper);
+        return;
       case 5:
-        callback = arg3;
-        return (fn as AsyncCallbackFn2)(arg1, arg2, wrapper);
+        (fn as AsyncCallbackFn2)(arg1, arg2, wrapper);
+        return;
       case 6:
-        callback = arg4;
-        return (fn as AsyncCallbackFn3)(arg1, arg2, arg3, wrapper);
+        (fn as AsyncCallbackFn3)(arg1, arg2, arg3, wrapper);
+        return;
       case 7:
-        callback = arg5;
-        return (fn as AsyncCallbackFn4)(arg1, arg2, arg3, arg4, wrapper);
+        (fn as AsyncCallbackFn4)(arg1, arg2, arg3, arg4, wrapper);
+        return;
       case 8:
-        callback = arg6;
-        return (fn as AsyncCallbackFn5)(arg1, arg2, arg3, arg4, arg5, wrapper);
+        (fn as AsyncCallbackFn5)(arg1, arg2, arg3, arg4, arg5, wrapper);
+        return;
       case 9:
-        return (fn as AsyncCallbackFn6)(arg1, arg2, arg3, arg4, arg5, arg6, wrapper);
+        (fn as AsyncCallbackFn6)(arg1, arg2, arg3, arg4, arg5, arg6, wrapper);
+        return;
       default: {
         // biome-ignore lint/style/noArguments: <explanation>
         const args = Array.prototype.slice.call(arguments, 2);
-        callback = args.pop();
-        args.push(wrapper);
-        return fn.apply(null, args);
+        args[args.length - 1] = wrapper; // replace callback with wrapper
+        fn.apply(null, args);
+        return;
       }
     }
   }
   // biome-ignore lint/style/noArguments: <explanation>
   switch (arguments.length) {
     case 3:
-      callback = arg1;
-      return wrapper(null, (fn as AsyncPromiseFn0)());
+      wrapper(null, (fn as AsyncFn0)());
+      return;
     case 4:
-      callback = arg2;
-      return wrapper(null, (fn as AsyncPromiseFn1)(arg1));
+      wrapper(null, (fn as AsyncFn1)(arg1));
+      return;
     case 5:
-      callback = arg3;
-      return wrapper(null, (fn as AsyncPromiseFn2)(arg1, arg2));
+      wrapper(null, (fn as AsyncFn2)(arg1, arg2));
+      return;
     case 6:
-      callback = arg4;
-      return wrapper(null, (fn as AsyncPromiseFn3)(arg1, arg2, arg3));
+      wrapper(null, (fn as AsyncFn3)(arg1, arg2, arg3));
+      return;
     case 7:
-      callback = arg5;
-      return wrapper(null, (fn as AsyncPromiseFn4)(arg1, arg2, arg3, arg4));
+      wrapper(null, (fn as AsyncFn4)(arg1, arg2, arg3, arg4));
+      return;
     case 8:
-      callback = arg6;
-      return wrapper(null, (fn as AsyncPromiseFn5)(arg1, arg2, arg3, arg4, arg5));
+      wrapper(null, (fn as AsyncFn5)(arg1, arg2, arg3, arg4, arg5));
+      return;
     case 9:
-      return wrapper(null, (fn as AsyncPromiseFn6)(arg1, arg2, arg3, arg4, arg5, arg6));
+      wrapper(null, (fn as AsyncFn6)(arg1, arg2, arg3, arg4, arg5, arg6));
+      return;
     default: {
       // biome-ignore lint/style/noArguments: <explanation>
-      const args1 = Array.prototype.slice.call(arguments, 2);
-      callback = args1.pop();
-      return wrapper(null, fn.apply(null, args1));
+      const args = Array.prototype.slice.call(arguments, 2);
+      args.pop(); // remove callback
+      wrapper(null, fn.apply(null, args));
+      return;
     }
   }
 }
