@@ -1,8 +1,7 @@
 import assert from 'assert';
-import Pinkie from 'pinkie-promise';
-
 // @ts-ignore
 import { asyncValue } from 'async-compat';
+import Pinkie from 'pinkie-promise';
 
 describe('asyncValue', () => {
   it('should resolve a promise', (done) => {
