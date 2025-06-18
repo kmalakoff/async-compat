@@ -1,8 +1,7 @@
 import assert from 'assert';
-import Pinkie from 'pinkie-promise';
-
 // @ts-ignore
 import compat from 'async-compat';
+import Pinkie from 'pinkie-promise';
 
 describe('async await', () => {
   (() => {
