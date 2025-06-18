@@ -1,8 +1,7 @@
 import assert from 'assert';
-import Pinkie from 'pinkie-promise';
-
 // @ts-ignore
 import { asyncFunction } from 'async-compat';
+import Pinkie from 'pinkie-promise';
 
 describe('asyncFunction', () => {
   describe('asynchronous function', () => {
@@ -150,7 +149,7 @@ describe('asyncFunction', () => {
     let args = [];
 
     function fn() {
-      // biome-ignore lint/style/noArguments: <explanation>
+      // biome-ignore lint/complexity/noArguments: Apply arguments
       args.push(Array.prototype.slice.call(arguments, 0));
       return 1;
     }
@@ -266,7 +265,7 @@ describe('asyncFunction', () => {
     let args = [];
 
     function fn() {
-      // biome-ignore lint/style/noArguments: <explanation>
+      // biome-ignore lint/complexity/noArguments: Apply arguments
       args.push(Array.prototype.slice.call(arguments, 0));
       args[args.length - 1].pop()(null, 1);
     }
@@ -382,7 +381,7 @@ describe('asyncFunction', () => {
     let args = [];
 
     function fn() {
-      // biome-ignore lint/style/noArguments: <explanation>
+      // biome-ignore lint/complexity/noArguments: Apply arguments
       args.push(Array.prototype.slice.call(arguments, 0));
       return Pinkie.resolve(1);
     }
