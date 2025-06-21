@@ -1,6 +1,6 @@
-import asyncValue from './asyncValue.js';
+import asyncValue from './asyncValue.ts';
 
-import type { AsyncCallback, AsyncCallbackFn0, AsyncCallbackFn1, AsyncCallbackFn2, AsyncCallbackFn3, AsyncCallbackFn4, AsyncCallbackFn5, AsyncCallbackFn6, AsyncFn0, AsyncFn1, AsyncFn2, AsyncFn3, AsyncFn4, AsyncFn5, AsyncFn6, AsyncFunction } from './types.js';
+import type { AsyncCallback, AsyncCallbackFn0, AsyncCallbackFn1, AsyncCallbackFn2, AsyncCallbackFn3, AsyncCallbackFn4, AsyncCallbackFn5, AsyncCallbackFn6, AsyncFn0, AsyncFn1, AsyncFn2, AsyncFn3, AsyncFn4, AsyncFn5, AsyncFn6, AsyncFunction } from './types.ts';
 
 type Optional = AsyncCallback | unknown;
 
