@@ -6,14 +6,20 @@ import Pinkie from 'pinkie-promise';
 describe('asyncValue', () => {
   it('should resolve a promise', (done) => {
     asyncValue(Pinkie.resolve(1), (err, value) => {
-      if (err) return done(err.message);
+      if (err) {
+        done(err.message);
+        return;
+      }
       assert.equal(value, 1);
       done();
     });
   });
   it('should return a value', (done) => {
     asyncValue(1, (err, value) => {
-      if (err) return done(err.message);
+      if (err) {
+        done(err.message);
+        return;
+      }
       assert.equal(value, 1);
       done();
     });
