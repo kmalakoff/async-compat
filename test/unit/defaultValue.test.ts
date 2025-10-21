@@ -1,6 +1,5 @@
 import assert from 'assert';
 
-// @ts-ignore
 import { defaultValue } from 'async-compat';
 
 describe('defaultValue', () => {
