@@ -4,14 +4,7 @@ import type { AsyncCallback, AsyncCallbackFn0, AsyncCallbackFn1, AsyncCallbackFn
 
 type Optional = AsyncCallback | unknown;
 
-export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, callback: AsyncCallback): undefined;
-export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: unknown, callback: AsyncCallback): undefined;
-export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: unknown, arg2: unknown, callback: AsyncCallback): undefined;
-export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: unknown, arg2: unknown, arg3: unknown, callback: AsyncCallback): undefined;
-export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: unknown, arg2: unknown, arg3: unknown, arg4: unknown, callback: AsyncCallback): undefined;
-export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: unknown, arg2: unknown, arg3: unknown, arg4: unknown, arg5: unknown, callback: AsyncCallback): undefined;
-export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: unknown, arg2: unknown, arg3: unknown, arg4: unknown, arg5: unknown, arg6: unknown, callback: AsyncCallback): undefined;
-export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: Optional, arg2?: Optional, arg3?: Optional, arg4?: Optional, arg5?: Optional, arg6?: Optional, _callback?: Optional): undefined {
+export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: Optional, arg2?: Optional, arg3?: Optional, arg4?: Optional, arg5?: Optional, arg6?: Optional, ..._args: Optional[]): undefined {
   // biome-ignore lint/complexity/noArguments: Apply arguments
   const callback = arguments[arguments.length - 1] as AsyncCallback;
   const wrapper: AsyncCallback = (err?: Error, result?: unknown): undefined => {

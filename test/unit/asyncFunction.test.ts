@@ -1,5 +1,4 @@
 import assert from 'assert';
-// @ts-ignore
 import { asyncFunction } from 'async-compat';
 import Pinkie from 'pinkie-promise';
 
@@ -264,7 +263,6 @@ describe('asyncFunction', () => {
 
     it('6 arguments', (done) => {
       args = [];
-      // @ts-ignore
       asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, (err?: Error, result?: unknown) => {
         if (err) {
           done(err.message);
@@ -281,7 +279,6 @@ describe('asyncFunction', () => {
 
     it('7 arguments', (done) => {
       args = [];
-      // @ts-ignore
       asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, 7, (err?: Error, result?: unknown) => {
         if (err) {
           done(err.message);
@@ -404,7 +401,6 @@ describe('asyncFunction', () => {
 
     it('6 arguments', (done) => {
       args = [];
-      // @ts-ignore
       asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, 6, (err?: Error, result?: unknown) => {
         if (err) {
           done(err.message);
@@ -421,7 +417,6 @@ describe('asyncFunction', () => {
 
     it('7 arguments', (done) => {
       args = [];
-      // @ts-ignore
       asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, 6, 7, (err?: Error, result?: unknown) => {
         if (err) {
           done(err.message);
@@ -544,7 +539,6 @@ describe('asyncFunction', () => {
 
     it('6 arguments', (done) => {
       args = [];
-      // @ts-ignore
       asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, (err?: Error, result?: unknown) => {
         if (err) {
           done(err.message);
@@ -561,7 +555,6 @@ describe('asyncFunction', () => {
 
     it('7 arguments', (done) => {
       args = [];
-      // @ts-ignore
       asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, 7, (err?: Error, result?: unknown) => {
         if (err) {
           done(err.message);

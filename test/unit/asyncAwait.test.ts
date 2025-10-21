@@ -1,5 +1,4 @@
 import assert from 'assert';
-// @ts-ignore
 import compat from 'async-compat';
 import Pinkie from 'pinkie-promise';
 
