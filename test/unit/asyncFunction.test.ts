@@ -15,7 +15,7 @@ describe('asyncFunction', () => {
 
       asyncFunction(fn, true, 1, 2, 3, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 4);
@@ -71,7 +71,7 @@ describe('asyncFunction', () => {
 
       asyncFunction(fn, false, 1, 2, 3, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 4);
@@ -90,7 +90,7 @@ describe('asyncFunction', () => {
 
       asyncFunction(fn, false, 1, 2, 3, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 4);
@@ -128,7 +128,7 @@ describe('asyncFunction', () => {
       try {
         asyncFunction(fn, true, 1, 2, 3, (err, _result) => {
           if (err) {
-            done(err.message);
+            done(err);
             return;
           }
           assert.ok(false);
@@ -169,7 +169,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, false, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -185,7 +185,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, false, 1, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -201,7 +201,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, false, 1, 2, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -217,7 +217,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -233,7 +233,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, 4, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -249,7 +249,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -265,7 +265,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -281,7 +281,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, 7, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -307,7 +307,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, true, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -323,7 +323,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, true, 1, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -339,7 +339,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, true, 1, 2, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -355,7 +355,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, true, 1, 2, 3, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -371,7 +371,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, true, 1, 2, 3, 4, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -387,7 +387,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -403,7 +403,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, 6, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -419,7 +419,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, 6, 7, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -445,7 +445,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, false, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -461,7 +461,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, false, 1, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -477,7 +477,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, false, 1, 2, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -493,7 +493,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -509,7 +509,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, 4, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -525,7 +525,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -541,7 +541,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
@@ -557,7 +557,7 @@ describe('asyncFunction', () => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, 7, (err?: Error, result?: unknown) => {
         if (err) {
-          done(err.message);
+          done(err);
           return;
         }
         assert.equal(result, 1);
