@@ -6,7 +6,7 @@ describe('asyncValue', () => {
   it('should resolve a promise', (done) => {
     asyncValue(Pinkie.resolve(1), (err, value) => {
       if (err) {
-        done(err.message);
+        done(err);
         return;
       }
       assert.equal(value, 1);
@@ -16,7 +16,7 @@ describe('asyncValue', () => {
   it('should return a value', (done) => {
     asyncValue(1, (err, value) => {
       if (err) {
-        done(err.message);
+        done(err);
         return;
       }
       assert.equal(value, 1);

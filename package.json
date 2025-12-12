@@ -39,16 +39,16 @@
     "version": "tsds version"
   },
   "dependencies": {
-    "is-error": "*",
-    "is-promise": "*"
+    "is-error": "^2.2.2",
+    "is-promise": "^4.0.0"
   },
   "devDependencies": {
-    "@types/mocha": "*",
-    "@types/node": "*",
-    "node-version-use": "*",
-    "pinkie-promise": "*",
-    "ts-dev-stack": "*",
-    "tsds-config": "*"
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^25.0.1",
+    "node-version-use": "^2.1.5",
+    "pinkie-promise": "^2.0.1",
+    "ts-dev-stack": "^1.21.3",
+    "tsds-config": "^0.2.1"
   },
   "engines": {
     "node": ">=0.8"
