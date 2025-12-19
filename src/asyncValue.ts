@@ -3,7 +3,7 @@ import isPromise from 'is-promise';
 
 import type { AsyncCallback } from './types.ts';
 
-export default function asyncValue(value: unknown, callback: AsyncCallback): undefined | unknown {
+export default function asyncValue(value: unknown, callback: AsyncCallback): void | unknown {
   if (isError(value)) return callback(value as Error);
   if (isPromise(value)) {
     return (value as Promise<unknown>)
