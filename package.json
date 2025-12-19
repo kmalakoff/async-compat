@@ -39,8 +39,8 @@
     "version": "tsds version"
   },
   "dependencies": {
-    "is-error": ">=2.0.0",
-    "is-promise": ">=1.0.0"
+    "is-error": "^2.0.0",
+    "is-promise": "^4.0.0"
   },
   "devDependencies": {
     "@types/mocha": "*",

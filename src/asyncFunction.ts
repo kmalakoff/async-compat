@@ -4,10 +4,10 @@ import type { AsyncCallback, AsyncCallbackFn0, AsyncCallbackFn1, AsyncCallbackFn
 
 type Optional = AsyncCallback | unknown;
 
-export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: Optional, arg2?: Optional, arg3?: Optional, arg4?: Optional, arg5?: Optional, arg6?: Optional, ..._args: Optional[]): undefined {
+export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, arg1: Optional, arg2?: Optional, arg3?: Optional, arg4?: Optional, arg5?: Optional, arg6?: Optional, ..._args: Optional[]): void {
   // biome-ignore lint/complexity/noArguments: Apply arguments
   const callback = arguments[arguments.length - 1] as AsyncCallback;
-  const wrapper: AsyncCallback = (err?: Error, result?: unknown): undefined => {
+  const wrapper: AsyncCallback = (err?: Error, result?: unknown): void => {
     err ? (callback as AsyncCallback)(err) : asyncValue(result, callback as AsyncCallback);
   };
   if (useCallback) {
