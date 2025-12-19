@@ -12,7 +12,3 @@ AGENTS.md
 .claude/
 CLAUDE.md
 
-# local
-data/
-*.heapsnapshot
-*.0x
