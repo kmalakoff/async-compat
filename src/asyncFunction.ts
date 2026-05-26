@@ -38,7 +38,11 @@ export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, a
         // biome-ignore lint/complexity/noArguments: Apply arguments
         const args = Array.prototype.slice.call(arguments, 2);
         args[args.length - 1] = wrapper; // replace callback with wrapper
-        fn.apply(null, args);
+        (
+          fn as unknown as {
+            apply(thisArg: null, argArray: unknown[]): unknown;
+          }
+        ).apply(null, args);
         return;
       }
     }
@@ -46,31 +50,38 @@ export default function asyncFunction(fn: AsyncFunction, useCallback: boolean, a
   // biome-ignore lint/complexity/noArguments: Apply arguments
   switch (arguments.length) {
     case 3:
-      wrapper(null, (fn as AsyncFn0)());
+      wrapper(undefined, (fn as AsyncFn0)());
       return;
     case 4:
-      wrapper(null, (fn as AsyncFn1)(arg1));
+      wrapper(undefined, (fn as AsyncFn1)(arg1));
       return;
     case 5:
-      wrapper(null, (fn as AsyncFn2)(arg1, arg2));
+      wrapper(undefined, (fn as AsyncFn2)(arg1, arg2));
       return;
     case 6:
-      wrapper(null, (fn as AsyncFn3)(arg1, arg2, arg3));
+      wrapper(undefined, (fn as AsyncFn3)(arg1, arg2, arg3));
       return;
     case 7:
-      wrapper(null, (fn as AsyncFn4)(arg1, arg2, arg3, arg4));
+      wrapper(undefined, (fn as AsyncFn4)(arg1, arg2, arg3, arg4));
       return;
     case 8:
-      wrapper(null, (fn as AsyncFn5)(arg1, arg2, arg3, arg4, arg5));
+      wrapper(undefined, (fn as AsyncFn5)(arg1, arg2, arg3, arg4, arg5));
       return;
     case 9:
-      wrapper(null, (fn as AsyncFn6)(arg1, arg2, arg3, arg4, arg5, arg6));
+      wrapper(undefined, (fn as AsyncFn6)(arg1, arg2, arg3, arg4, arg5, arg6));
       return;
     default: {
       // biome-ignore lint/complexity/noArguments: Apply arguments
       const args = Array.prototype.slice.call(arguments, 2);
       args.pop(); // remove callback
-      wrapper(null, fn.apply(null, args));
+      wrapper(
+        undefined,
+        (
+          fn as unknown as {
+            apply(thisArg: null, argArray: unknown[]): unknown;
+          }
+        ).apply(null, args)
+      );
       return;
     }
   }

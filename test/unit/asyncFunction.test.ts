@@ -5,26 +5,23 @@ import Pinkie from 'pinkie-promise';
 describe('asyncFunction', () => {
   describe('asynchronous function', () => {
     it('all parameters', (done) => {
-      function fn(value1, value2, value3, callback) {
+      function fn(value1: unknown, value2: unknown, value3: unknown, callback: (err?: Error, result?: unknown) => void) {
         assert.equal(value1, 1);
         assert.equal(value2, 2);
         assert.equal(value3, 3);
         assert.ok(!!callback);
-        callback(null, 4);
+        callback(undefined, 4);
       }
 
       asyncFunction(fn, true, 1, 2, 3, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 4);
         done();
       });
     });
 
     it('error returned', (done) => {
-      function fn(value1, value2, value3, callback) {
+      function fn(value1: unknown, value2: unknown, value3: unknown, callback: (err?: Error, result?: unknown) => void) {
         assert.equal(value1, 1);
         assert.equal(value2, 2);
         assert.equal(value3, 3);
@@ -40,7 +37,7 @@ describe('asyncFunction', () => {
     });
 
     it('error thrown', (done) => {
-      function fn(value1, value2, value3, callback) {
+      function fn(value1: unknown, value2: unknown, value3: unknown, callback: (err?: Error, result?: unknown) => void) {
         assert.equal(value1, 1);
         assert.equal(value2, 2);
         assert.equal(value3, 3);
@@ -49,7 +46,7 @@ describe('asyncFunction', () => {
       }
 
       try {
-        asyncFunction(fn, true, 1, 2, 3, (err, _result) => {
+        asyncFunction(fn, true, 1, 2, 3, (err?: Error, _result?: unknown) => {
           assert.ok(!!err);
         });
       } catch (_err) {
@@ -61,7 +58,7 @@ describe('asyncFunction', () => {
 
   describe('synchronous function', () => {
     it('all parameters', (done) => {
-      function fn(value1, value2, value3, callback) {
+      function fn(value1: unknown, value2: unknown, value3: unknown, callback: (err?: Error, result?: unknown) => void) {
         assert.equal(value1, 1);
         assert.equal(value2, 2);
         assert.equal(value3, 3);
@@ -70,17 +67,14 @@ describe('asyncFunction', () => {
       }
 
       asyncFunction(fn, false, 1, 2, 3, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 4);
         done();
       });
     });
 
     it('all parameters (promise)', (done) => {
-      function fn(value1, value2, value3, callback) {
+      function fn(value1: unknown, value2: unknown, value3: unknown, callback: (err?: Error, result?: unknown) => void) {
         assert.equal(value1, 1);
         assert.equal(value2, 2);
         assert.equal(value3, 3);
@@ -89,22 +83,19 @@ describe('asyncFunction', () => {
       }
 
       asyncFunction(fn, false, 1, 2, 3, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 4);
         done();
       });
     });
 
     it('error returned', (done) => {
-      function fn(value1, value2, value3, callback) {
+      function fn(value1: unknown, value2: unknown, value3: unknown, callback: (err?: Error, result?: unknown) => void) {
         assert.equal(value1, 1);
         assert.equal(value2, 2);
         assert.equal(value3, 3);
         assert.equal(callback, undefined);
-        return new Pinkie((_resolve, reject) => {
+        return new Pinkie<void>((_resolve: (value: undefined) => void, reject: (reason?: unknown) => void) => {
           reject(new Error('Failed'));
         });
       }
@@ -117,7 +108,7 @@ describe('asyncFunction', () => {
     });
 
     it('error thrown', (done) => {
-      function fn(value1, value2, value3, callback) {
+      function fn(value1: unknown, value2: unknown, value3: unknown, callback: (err?: Error, result?: unknown) => void) {
         assert.equal(value1, 1);
         assert.equal(value2, 2);
         assert.equal(value3, 3);
@@ -126,11 +117,9 @@ describe('asyncFunction', () => {
       }
 
       try {
-        asyncFunction(fn, true, 1, 2, 3, (err, _result) => {
-          if (err) {
-            done(err);
-            return;
-          }
+        asyncFunction(fn, true, 1, 2, 3, (err?: Error, _result?: unknown) => {
+          if (err) return done(err);
+
           assert.ok(false);
         });
       } catch (err) {
@@ -140,7 +129,7 @@ describe('asyncFunction', () => {
     });
 
     it('error returned (no callback)', (done) => {
-      function fn(value1, value2, value3, callback) {
+      function fn(value1: unknown, value2: unknown, value3: unknown, callback: (err?: Error, result?: unknown) => void) {
         assert.equal(value1, 1);
         assert.equal(value2, 2);
         assert.equal(value3, 3);
@@ -157,7 +146,7 @@ describe('asyncFunction', () => {
   });
 
   describe('arguments (sync)', () => {
-    let args = [];
+    let args: unknown[][] = [];
 
     function fn() {
       // biome-ignore lint/complexity/noArguments: Apply arguments
@@ -168,10 +157,7 @@ describe('asyncFunction', () => {
     it('0 arguments', (done) => {
       args = [];
       asyncFunction(fn, false, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -184,10 +170,7 @@ describe('asyncFunction', () => {
     it('1 argument', (done) => {
       args = [];
       asyncFunction(fn, false, 1, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -200,10 +183,7 @@ describe('asyncFunction', () => {
     it('2 arguments', (done) => {
       args = [];
       asyncFunction(fn, false, 1, 2, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -216,10 +196,7 @@ describe('asyncFunction', () => {
     it('3 arguments', (done) => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -232,10 +209,7 @@ describe('asyncFunction', () => {
     it('4 arguments', (done) => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, 4, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -248,10 +222,7 @@ describe('asyncFunction', () => {
     it('5 arguments', (done) => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -264,10 +235,7 @@ describe('asyncFunction', () => {
     it('6 arguments', (done) => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -280,10 +248,7 @@ describe('asyncFunction', () => {
     it('7 arguments', (done) => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, 7, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -295,21 +260,18 @@ describe('asyncFunction', () => {
   });
 
   describe('arguments (callback)', () => {
-    let args = [];
+    let args: unknown[][] = [];
 
     function fn() {
       // biome-ignore lint/complexity/noArguments: Apply arguments
       args.push(Array.prototype.slice.call(arguments, 0));
-      args[args.length - 1].pop()(null, 1);
+      (args[args.length - 1]?.pop() as (...args: unknown[]) => void)(null, 1);
     }
 
     it('0 arguments', (done) => {
       args = [];
       asyncFunction(fn, true, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -322,10 +284,7 @@ describe('asyncFunction', () => {
     it('1 argument', (done) => {
       args = [];
       asyncFunction(fn, true, 1, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -338,10 +297,7 @@ describe('asyncFunction', () => {
     it('2 arguments', (done) => {
       args = [];
       asyncFunction(fn, true, 1, 2, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -354,10 +310,7 @@ describe('asyncFunction', () => {
     it('3 arguments', (done) => {
       args = [];
       asyncFunction(fn, true, 1, 2, 3, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -370,10 +323,7 @@ describe('asyncFunction', () => {
     it('4 arguments', (done) => {
       args = [];
       asyncFunction(fn, true, 1, 2, 3, 4, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -386,10 +336,7 @@ describe('asyncFunction', () => {
     it('5 arguments', (done) => {
       args = [];
       asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -402,10 +349,7 @@ describe('asyncFunction', () => {
     it('6 arguments', (done) => {
       args = [];
       asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, 6, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -418,10 +362,7 @@ describe('asyncFunction', () => {
     it('7 arguments', (done) => {
       args = [];
       asyncFunction(fn, true, 1, 2, 3, 3, 4, 5, 6, 7, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -433,7 +374,7 @@ describe('asyncFunction', () => {
   });
 
   describe('arguments (promise)', () => {
-    let args = [];
+    let args: unknown[][] = [];
 
     function fn() {
       // biome-ignore lint/complexity/noArguments: Apply arguments
@@ -444,10 +385,7 @@ describe('asyncFunction', () => {
     it('0 arguments', (done) => {
       args = [];
       asyncFunction(fn, false, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -460,10 +398,7 @@ describe('asyncFunction', () => {
     it('1 argument', (done) => {
       args = [];
       asyncFunction(fn, false, 1, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -476,10 +411,7 @@ describe('asyncFunction', () => {
     it('2 arguments', (done) => {
       args = [];
       asyncFunction(fn, false, 1, 2, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -492,10 +424,7 @@ describe('asyncFunction', () => {
     it('3 arguments', (done) => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -508,10 +437,7 @@ describe('asyncFunction', () => {
     it('4 arguments', (done) => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, 4, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -524,10 +450,7 @@ describe('asyncFunction', () => {
     it('5 arguments', (done) => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -540,10 +463,7 @@ describe('asyncFunction', () => {
     it('6 arguments', (done) => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
@@ -556,10 +476,7 @@ describe('asyncFunction', () => {
     it('7 arguments', (done) => {
       args = [];
       asyncFunction(fn, false, 1, 2, 3, 3, 4, 5, 6, 7, (err?: Error, result?: unknown) => {
-        if (err) {
-          done(err);
-          return;
-        }
+        if (err) return done(err);
         assert.equal(result, 1);
         assert.equal(args.length, 1);
         args.forEach((params) => {
