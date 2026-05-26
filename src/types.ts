@@ -1,4 +1,4 @@
-export type AsyncCallback = (err?: Error, result?: unknown) => void;
+export type AsyncCallback = (err?: Error | null, result?: unknown) => void;
 
 export type AsyncCallbackFn0 = (callback: AsyncCallback) => unknown;
 export type AsyncCallbackFn1 = (arg1: unknown, callback: AsyncCallback) => unknown;
