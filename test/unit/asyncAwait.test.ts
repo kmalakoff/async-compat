@@ -20,7 +20,7 @@ describe('async await', () => {
       assert.equal(arg1, 1);
       return true;
     }
-    compat.asyncFunction(testFn, false, 1, (err?: Error, result?: unknown) => {
+    compat.asyncFunction(testFn, false, 1, (err?: Error | null, result?: unknown) => {
       if (err) return done(err);
       assert.equal(result, true);
       done();
