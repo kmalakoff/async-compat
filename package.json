@@ -52,5 +52,11 @@
   },
   "engines": {
     "node": ">=0.8"
+  },
+  "allowScripts": {
+    "node-filename-to-dist-paths": true,
+    "node-version-use": true,
+    "node-semvers": true,
+    "thread-sleep-compat": true
   }
 }
