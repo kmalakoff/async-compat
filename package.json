@@ -1,14 +1,14 @@
 {
   "name": "async-compat",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "Compatibility functions for writing libraries that support synchronous, callback and promise signatures",
   "main": "index.js",
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "mocha . test/**/*.test.js",
-    "compatibility": "nvs 14 12 10 8 6 4 0.12 0.10 0.8 -- npm test",
+    "test": "mocha test/spec/**/*.test.js",
+    "compat": "nvs 14,12,10,8,6,4,0.12,0.10,0.8 mocha-compat test/spec/**/*.test.js",
     "lint": "eslint .",
     "format": "prettier --write '**/*.js'"
   },
@@ -28,7 +28,7 @@
   "homepage": "https://github.com/kmalakoff/async-compat",
   "dependencies": {
     "is-error": "^2.2.2",
-    "is-promise": "^2.2.2"
+    "is-promise": "^3.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
@@ -39,10 +39,9 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "mocha-compat": "^3.5.4",
-    "nvs": "^0.1.1",
-    "prettier": "^2.0.5",
-    "sinon": "^2.4.1",
-    "sinon-chai": "^2.14.0"
+    "mocha": "^7.1.2",
+    "mocha-compat": "^3.5.5",
+    "nvs": "^0.1.8",
+    "prettier": "^2.0.5"
   }
 }
