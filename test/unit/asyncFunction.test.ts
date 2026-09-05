@@ -265,7 +265,7 @@ describe('asyncFunction', () => {
     function fn() {
       // biome-ignore lint/complexity/noArguments: Apply arguments
       args.push(Array.prototype.slice.call(arguments, 0));
-      (args[args.length - 1]?.pop() as (...args: unknown[]) => void)(null, 1);
+      (args[args.length - 1].pop() as (...args: unknown[]) => void)(null, 1);
     }
 
     it('0 arguments', (done) => {
