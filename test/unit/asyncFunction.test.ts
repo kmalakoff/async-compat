@@ -3,6 +3,32 @@ import { asyncFunction } from 'async-compat';
 import Pinkie from 'pinkie-promise';
 
 describe('asyncFunction', () => {
+  describe('async function return', () => {
+    (() => {
+      // patch and restore promise
+      if (typeof global === 'undefined') return;
+      const globalPromise = global.Promise;
+      before(() => {
+        global.Promise = Pinkie;
+      });
+      after(() => {
+        global.Promise = globalPromise;
+      });
+    })();
+
+    it('one argument', (done) => {
+      async function testFn(arg1: unknown) {
+        assert.equal(arg1, 1);
+        return true;
+      }
+      asyncFunction(testFn, false, 1, (err?: Error | null, result?: unknown) => {
+        if (err) return done(err);
+        assert.equal(result, true);
+        done();
+      });
+    });
+  });
+
   describe('asynchronous function', () => {
     it('all parameters', (done) => {
       function fn(value1: unknown, value2: unknown, value3: unknown, callback: (err?: Error | null, result?: unknown) => void) {
@@ -265,7 +291,7 @@ describe('asyncFunction', () => {
     function fn() {
       // biome-ignore lint/complexity/noArguments: Apply arguments
       args.push(Array.prototype.slice.call(arguments, 0));
-      (args[args.length - 1]?.pop() as (...args: unknown[]) => void)(null, 1);
+      (args[args.length - 1].pop() as (...args: unknown[]) => void)(null, 1);
     }
 
     it('0 arguments', (done) => {

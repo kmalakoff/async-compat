@@ -1,73 +1,50 @@
-## async-compat
+# async-compat
 
-Compatibility functions for writing libraries that support synchronous, callback and promise signatures.
+Convert synchronous, callback, and promise-returning functions to a callback interface.
 
-It handles both the call signature differences between callback and promises APIs (eg. missing the last callback parameter) by converting them to callbacks. It also resolves returned parameters when promises are returned.
+## Install
 
+```bash
+npm install async-compat
 ```
+
+## Usage
+
+`asyncFunction(fn, hasCallback, ...args, callback)` invokes `fn` and calls the final callback with `(err, result)`. Set `hasCallback` to `true` when `fn` expects a callback.
+
+```js
 var compat = require('async-compat');
-var assert = require(assert');
 
-/////////////////
-// synchronous
-/////////////////
-function fn(value1) {
-  assert.equal(value1, 1);
-  return 4;
+function syncFn(value) {
+  return value * 2;
 }
 
-compat.asyncFunction(fn, false /* no callbacks */, 1, function (err, result) {
-  assert.equal(result, 4);
+compat.asyncFunction(syncFn, false, 2, function (err, result) {
+  if (err) throw err;
+  console.log(result); // 4
 });
 
-function errorFn(value1) {
-  assert.equal(value1, 1);
-  return new Error('Failed');
+function callbackFn(value, callback) {
+  callback(null, value * 2);
 }
 
-compat.asyncFunction(errorFn, false /* no callbacks */, 1, function (err, result) {
-  assert.ok(!!err);
+compat.asyncFunction(callbackFn, true, 2, function (err, result) {
+  if (err) throw err;
+  console.log(result); // 4
 });
 
-/////////////////
-// callback
-/////////////////
-function callbackFn(value1, callback) {
-  assert.equal(value1, 1);
-  callback(null, 4);
+function promiseFn(value) {
+  return Promise.resolve(value * 2);
 }
 
-compat.asyncFunction(callbackFn, true /*  no callbacks */, 1, function (err, result) {
-  assert.equal(result, 4);
-});
-
-function errorCallbackFn(value1, callback) {
-  assert.equal(value1, 1);
-  callback(new Error('Failed'));
-}
-
-compat.asyncFunction(errorCallbackFn, true /*  no callbacks */, 1, function (err, result) {
-  assert.ok(!!err);
-});
-
-/////////////////
-// promise
-/////////////////
-function promiseFn(value1) {
-  assert.equal(value1, 1);
-  return Promise.resolve(4);
-}
-
-compat.asyncFunction(promiseFn, false /* no callbacks */, 1, function (err, result) {
-  assert.equal(result, 4);
-});
-
-function errorPromiseFn(value1) {
-  assert.equal(value1, 1);
-  return Promise.reject(new Error('Failed'));
-}
-
-compat.errorPromiseFn(promiseFn, false /* no callbacks */, 1, function (err, result) {
-  assert.ok(!!err);
+compat.asyncFunction(promiseFn, false, 2, function (err, result) {
+  if (err) throw err;
+  console.log(result); // 4
 });
 ```
+
+## API
+
+- `asyncFunction(fn, hasCallback, ...args, callback)` normalizes a synchronous, callback-based, or promise-returning function. Returned `Error` values and rejected promises reach the callback as `err`.
+- `asyncValue(value, callback)` sends an `Error`, resolved promise value, or ordinary value to the callback.
+- `defaultValue(result, value)` returns `value` only when `result` is `undefined`; otherwise it returns `result`.
